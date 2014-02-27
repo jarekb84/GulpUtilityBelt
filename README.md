@@ -2,6 +2,8 @@ GulpUtilityBelt
 ================
 Meant to run one off tasks on files not tied to a specific project. 
 
+Put files in the **src** directory, run a task, see output in **dist** directory.
+
 ## Tasks
 - **default**: helper task that runs registeredTasks to show what's available
 - **registeredTasks**: lists out all registered task
@@ -12,6 +14,10 @@ Meant to run one off tasks on files not tied to a specific project.
 - **minifyJs**: runs uglify on all js files in src directory
 
 ## Changelog
+
+**v1.0.1 released 2014-02-26**
+
+* Added .gitignore to src/dist directories to force repo to include those directories.
 
 **v1.0.0 released 2014-02-26**
 
