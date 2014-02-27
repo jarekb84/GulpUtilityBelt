@@ -20,8 +20,13 @@ Enter the following commands in the terminal.
 - **imagemin**: Minify PNG, JPEG and GIF images in src directory
 - **minifyCss**: minifies all css files in src directory
 - **minifyJs**: runs uglify on all js files in src directory
+- **bump**: used for dev to increment package.json version
 
 ## Changelog
+
+**v1.0.3 released 2014-02-26**
+
+* Added bump to increment version numbers, nomnom and gulp-if to pass in cmd agruments to bump.
 
 **v1.0.2 released 2014-02-26**
 
