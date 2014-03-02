@@ -1,6 +1,6 @@
 {
   "name": "GulpUtilityBelt",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Utility tasks to be ran for ad-hoc needs.",
   "author": "Jerry Batorski",
   "license": "MIT",
@@ -22,6 +22,8 @@
     "gulp-uglify": "~0.2.1",
     "gulp-bump": "~0.1.5",
     "nomnom": "~1.6.2",
-    "gulp-if": "0.0.5"
+    "gulp-if": "0.0.5",
+    "gulp-git": "~0.3.3",
+    "gulp-tap": "~0.1.1"
   }
 }

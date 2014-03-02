@@ -2,7 +2,17 @@ GulpUtilityBelt
 ================
 Meant to run one off tasks on files not tied to a specific project. 
 
-Put files in the **src** directory, run a task, see output in **dist** directory.
+Put files in the **src** directory, run a task, see output in **dist** 
+directory.
+
+<!-- MarkdownTOC depth=2 -->
+
+- Install
+- Tasks
+- Changelog
+
+<!-- /MarkdownTOC -->
+
 
 ## Install
 Enter the following commands in the terminal.
@@ -13,16 +23,21 @@ Enter the following commands in the terminal.
 4. `gulp`
 
 ## Tasks
-- **default**: helper task that runs registeredTasks to show what's available
-- **registeredTasks**: lists out all registered task
-- **installedPlugins**: lists out all plugins registered by 'gulp-load-plugins'
-- **clean**: deletes all files int he dist directory
-- **imagemin**: Minify PNG, JPEG and GIF images in src directory
-- **minifyCss**: minifies all css files in src directory
-- **minifyJs**: runs uglify on all js files in src directory
-- **bump**: used for dev to increment package.json version
+`gulp` Lists out tasks supported (default task)   
+`gulp imagemin` Minify PNG, JPEG, and GIF images in src directory   
+`gulp minifyCss` Minifies all css files in src directory 'gulp'   
+`gulp minifyJs` Runs uglify on all js files in src directory   
 
 ## Changelog
+
+**v1.0.4 rleased 2014-03-02**
+
+* Cleanup of commented out code
+* Reordred code to put utility tasks up top and dev tasks at bottom of file
+* Reformatting/cleanup of readme
+* Hid internally used tasks when running `gulp` command. Mostly tasks that help me with development of this tool, that don't need to be exposed when using it.
+    - registeredTasks, installedPlugins, clean, bump removed
+* added dev task that bumps package.json and creates a git tag
 
 **v1.0.3 released 2014-02-26**
 
