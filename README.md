@@ -27,7 +27,7 @@ Enter the following commands in the terminal.
 * Changed name of minifyCss and minifyJs tasks to processCss and processJs since they are now doing more then just minifying the contents.
 * The processCss and processJs tasks now output files with .min
 * ProcessCss task now runs css through autoprefixer
-* ProcessJs task now runs js through jshint first, if any arrors found, will not minify code.
+* ProcessJs task now runs js through jshint and outputs any errors found
 
 **v1.0.4 released 2014-03-02**
 
