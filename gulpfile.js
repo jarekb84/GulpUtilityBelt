@@ -23,6 +23,9 @@ gulp.task('imagemin', ['_clean'], function() {
 gulp.task('minifyCss', ['_clean'], function() {
   gulp.src('src/*.css')
     .pipe($.minifyCss())
+    .pipe($.rename(function (path) {
+        path.basename += ".min";
+    }))
     .pipe(gulp.dest('dist'));
 });
 
@@ -30,6 +33,12 @@ gulp.task('minifyJs', ['_clean'], function() {
   gulp.src('src/*.js')
     .pipe($.uglify({
       outSourceMap: true
+    }))
+    .pipe($.rename(function (path) {
+        //sourcemap already has .min in basename
+        if(path.extname !== '.map'){
+          path.basename += ".min";
+        }
     }))
     .pipe(gulp.dest('dist'));
 });
