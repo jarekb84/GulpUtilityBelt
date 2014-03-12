@@ -1,6 +1,7 @@
 var gulp = require("gulp");
 var $ = require('gulp-load-plugins')();
 var args = require("nomnom");
+var autoprefixer = require('autoprefixer');
 
 gulp.task('default', function() {
   $.util.log("Registered tasks");
@@ -20,11 +21,16 @@ gulp.task('imagemin', ['_clean'], function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('minifyCss', ['_clean'], function() {
+gulp.task('processCss', ['_clean'], function() {
   gulp.src('src/*.css')
+    .pipe($.if(!args.skipAutoPrefixer,
+      $.tap(function(file, t) {
+        var css = file.contents.toString();
+        file.contents = new Buffer(autoprefixer.process(css).css);
+    })))
     .pipe($.minifyCss())
-    .pipe($.rename(function (path) {
-        path.basename += ".min";
+    .pipe($.rename(function(path) {
+      path.basename += ".min";
     }))
     .pipe(gulp.dest('dist'));
 });
@@ -34,11 +40,11 @@ gulp.task('minifyJs', ['_clean'], function() {
     .pipe($.uglify({
       outSourceMap: true
     }))
-    .pipe($.rename(function (path) {
-        //sourcemap already has .min in basename
-        if(path.extname !== '.map'){
-          path.basename += ".min";
-        }
+    .pipe($.rename(function(path) {
+      //sourcemap already has .min in basename
+      if (path.extname !== '.map') {
+        path.basename += ".min";
+      }
     }))
     .pipe(gulp.dest('dist'));
 });
@@ -66,6 +72,11 @@ args = args.options({
     abbr: 'bmj',
     flag: true,
     help: "Semantic major"
+  },
+  skipAutoPrefixer: {
+    abbr: 'scap',
+    flag: true,
+    help: "Prevent autoprefixer postprocessing on css files."
   }
 }).parse();
 
@@ -85,13 +96,16 @@ gulp.task('_clean', function() {
 gulp.task('_bump', function() {
   var bump = gulp.src(['package.json'])
     .pipe($.if(args.bumpPatch, $.bump()))
-    .pipe($.if(args.bumpMinor, $.bump({type: 'minor'})))
-    .pipe($.if(args.bumpMajor, $.bump({type: 'major'})))
-
-    .pipe($.tap( function (file, t) {
-        var config = JSON.parse(file.contents.toString());
-        $.git.tag('v' + config.version, 'Version message');
-        $.util.log("new tag " + config.version);
-      }))
+    .pipe($.if(args.bumpMinor, $.bump({
+        type: 'minor'
+      })))
+    .pipe($.if(args.bumpMajor, $.bump({
+        type: 'major'
+      })))
+    .pipe($.tap(function(file, t) {
+      var config = JSON.parse(file.contents.toString());
+      $.git.tag('v' + config.version, 'Version message');
+      $.util.log("new tag " + config.version);
+    }))
     .pipe(gulp.dest('./'));
 });
