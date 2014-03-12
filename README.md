@@ -5,15 +5,6 @@ Meant to run one off tasks on files not tied to a specific project.
 Put files in the **src** directory, run a task, see output in **dist** 
 directory.
 
-<!-- MarkdownTOC depth=2 -->
-
-- Install
-- Tasks
-- Changelog
-
-<!-- /MarkdownTOC -->
-
-
 ## Install
 Enter the following commands in the terminal.
 
@@ -23,14 +14,22 @@ Enter the following commands in the terminal.
 4. `gulp`
 
 ## Tasks
-`gulp` Lists out tasks supported (default task)   
-`gulp imagemin` Minify PNG, JPEG, and GIF images in src directory   
-`gulp minifyCss` Minifies all css files in src directory 'gulp'   
-`gulp minifyJs` Runs uglify on all js files in src directory   
+- `gulp` Lists out tasks supported (default task)   
+- `gulp imagemin` Minify PNG, JPEG, and GIF images in src directory   
+- `gulp processCss` Runs css files through autoprefixer, minifies, and adds .min to filename
+    - add `--skipAutoPrefixer` to only minify code  
+- `gulp processJs` Runs js files through uglify, jshint, and adds .min to filename
+    - jsHint rules can be modified in .jshinttrc file ([options](http://www.jshint.com/docs/options)).
 
 ## Changelog
+**v1.1.0 released 2014-03-12**
 
-**v1.0.4 rleased 2014-03-02**
+* Changed name of minifyCss and minifyJs tasks to processCss and processJs since they are now doing more then just minifying the contents.
+* The processCss and processJs tasks now output files with .min
+* ProcessCss task now runs css through autoprefixer
+* ProcessJs task now runs js through jshint first, if any arrors found, will not minify code.
+
+**v1.0.4 released 2014-03-02**
 
 * Cleanup of commented out code
 * Reordred code to put utility tasks up top and dev tasks at bottom of file
