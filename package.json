@@ -26,6 +26,8 @@
     "gulp-git": "~0.3.3",
     "gulp-tap": "~0.1.1",
     "gulp-rename": "~1.2.0",
-    "autoprefixer": "~1.1.20140302"
+    "autoprefixer": "~1.1.20140302",
+    "gulp-jshint": "~1.5.0",
+    "jshint-stylish": "~0.1.5"
   }
 }

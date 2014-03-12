@@ -1,13 +1,14 @@
-var gulp = require("gulp");
+var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var args = require("nomnom");
+var args = require('nomnom');
 var autoprefixer = require('autoprefixer');
+//var stylish = require('jshint-stylish');
 
 gulp.task('default', function() {
-  $.util.log("Registered tasks");
+  $.util.log('Registered tasks');
   for (var task in gulp.tasks) {
-    if (task.lastIndexOf("_", 0) !== 0) {
-      $.util.log("    " + task);
+    if (task.lastIndexOf('_', 0) !== 0) {
+      $.util.log('    ' + task);
     }
   }
 });
@@ -23,27 +24,30 @@ gulp.task('imagemin', ['_clean'], function() {
 
 gulp.task('processCss', ['_clean'], function() {
   gulp.src('src/*.css')
-    .pipe($.if(!args.skipAutoPrefixer,
-      $.tap(function(file, t) {
-        var css = file.contents.toString();
-        file.contents = new Buffer(autoprefixer.process(css).css);
-    })))
+    .pipe($.
+      if (!args.skipAutoPrefixer,
+        $.tap(function(file) {
+          var css = file.contents.toString();
+          file.contents = new Buffer(autoprefixer.process(css).css);
+        })))
     .pipe($.minifyCss())
     .pipe($.rename(function(path) {
-      path.basename += ".min";
+      path.basename += '.min';
     }))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('minifyJs', ['_clean'], function() {
+gulp.task('processJs', ['_clean'], function() {
   gulp.src('src/*.js')
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.uglify({
       outSourceMap: true
     }))
     .pipe($.rename(function(path) {
       //sourcemap already has .min in basename
       if (path.extname !== '.map') {
-        path.basename += ".min";
+        path.basename += '.min';
       }
     }))
     .pipe(gulp.dest('dist'));
@@ -61,28 +65,28 @@ args = args.options({
     // this will always run, if other bump arg passed
     // will overide to new version anyway
     default: true,
-    help: "Will patch the version"
+    help: 'Will patch the version'
   },
   bumpMinor: {
     abbr: 'bmn',
     flag: true,
-    help: "Semantic minor"
+    help: 'Semantic minor'
   },
   bumpMajor: {
     abbr: 'bmj',
     flag: true,
-    help: "Semantic major"
+    help: 'Semantic major'
   },
   skipAutoPrefixer: {
     abbr: 'scap',
     flag: true,
-    help: "Prevent autoprefixer postprocessing on css files."
+    help: 'Prevent autoprefixer postprocessing on css files.'
   }
 }).parse();
 
 gulp.task('_installedPlugins', function() {
   for (var plugin in $) {
-    $.util.log("    " + plugin);
+    $.util.log('    ' + plugin);
   }
 });
 
@@ -94,18 +98,21 @@ gulp.task('_clean', function() {
 });
 
 gulp.task('_bump', function() {
-  var bump = gulp.src(['package.json'])
+  return gulp.src(['package.json'])
     .pipe($.if(args.bumpPatch, $.bump()))
     .pipe($.if(args.bumpMinor, $.bump({
-        type: 'minor'
-      })))
-    .pipe($.if(args.bumpMajor, $.bump({
+      type: 'minor'
+    })))
+    .pipe($.
+      if (args.bumpMajor, $.bump({
         type: 'major'
       })))
-    .pipe($.tap(function(file, t) {
-      var config = JSON.parse(file.contents.toString());
-      $.git.tag('v' + config.version, 'Version message');
-      $.util.log("new tag " + config.version);
-    }))
+    .pipe($.tap(
+      function(file) {
+        var config = JSON.parse(file.contents.toString());
+        $.git.tag('v' + config.version, 'Version message');
+        $.util.log('new tag ' + config.version);
+      }
+    ))
     .pipe(gulp.dest('./'));
 });
