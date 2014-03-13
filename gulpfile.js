@@ -1,10 +1,9 @@
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var $ = require('gulp-load-plugins')({lazy:false});
 var args = require('nomnom');
 var autoprefixer = require('autoprefixer');
-//var stylish = require('jshint-stylish');
 
-gulp.task('default', function() {
+gulp.task('default', function() {  
   $.util.log('Registered tasks');
   for (var task in gulp.tasks) {
     if (task.lastIndexOf('_', 0) !== 0) {
@@ -77,6 +76,11 @@ args = args.options({
     flag: true,
     help: 'Semantic major'
   },
+  message:{
+    abbr: 'msg',
+    flag: true,
+    help: 'message arugment'
+  },
   skipAutoPrefixer: {
     abbr: 'scap',
     flag: true,
@@ -100,17 +104,14 @@ gulp.task('_clean', function() {
 gulp.task('_bump', function() {
   return gulp.src(['package.json'])
     .pipe($.if(args.bumpPatch, $.bump()))
-    .pipe($.if(args.bumpMinor, $.bump({
-      type: 'minor'
-    })))
-    .pipe($.
-      if (args.bumpMajor, $.bump({
-        type: 'major'
-      })))
+    .pipe($.if(args.bumpMinor, $.bump({type: 'minor'})))
+    .pipe($.if(args.bumpMajor, $.bump({type: 'major'})))
     .pipe($.tap(
       function(file) {
-        var config = JSON.parse(file.contents.toString());
-        $.git.tag('v' + config.version, 'Version message');
+        var msg = args.message || 'New Version',
+          config = JSON.parse(file.contents.toString());
+
+        $.git.tag('v' + config.version, msg);
         $.util.log('new tag ' + config.version);
       }
     ))

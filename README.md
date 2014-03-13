@@ -1,3 +1,5 @@
+[![devDependency Status](https://david-dm.org/jarekb84/gulputilitybelt/dev-status.png)](https://david-dm.org/jarekb84/gulputilitybelt#info=devDependencies) [![Code Climate](https://codeclimate.com/github/jarekb84/GulpUtilityBelt.png)](https://codeclimate.com/github/jarekb84/GulpUtilityBelt)
+
 GulpUtilityBelt
 ================
 Meant to run one off tasks on files not tied to a specific project. 
@@ -22,6 +24,12 @@ Enter the following commands in the terminal.
     - jsHint rules can be modified in .jshinttrc file ([options](http://www.jshint.com/docs/options)).
 
 ## Changelog
+**v1.1.1 released 2014-03-12**
+
+* Added david-dm and codeclimate badges.
+* Updated dependencies
+* Added msg argument to be used in bump task to set git tag 
+
 **v1.1.0 released 2014-03-12**
 
 * Changed name of minifyCss and minifyJs tasks to processCss and processJs since they are now doing more then just minifying the contents.
