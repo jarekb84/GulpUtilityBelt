@@ -24,6 +24,10 @@ Enter the following commands in the terminal.
     - jsHint rules can be modified in .jshinttrc file ([options](http://www.jshint.com/docs/options)).
 
 ## Changelog
+**v1.1.2 released 2014-03-23**
+
+* Turned on optimizations on imagemin task to use lossless conversion to progressive for jpeg's and interlace gif's for progressive rendering.
+
 **v1.1.1 released 2014-03-12**
 
 * Added david-dm and codeclimate badges.

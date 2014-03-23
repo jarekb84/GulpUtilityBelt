@@ -3,7 +3,7 @@ var $ = require('gulp-load-plugins')({lazy:false});
 var args = require('nomnom');
 var autoprefixer = require('autoprefixer');
 
-gulp.task('default', function() {  
+gulp.task('default', function() {
   $.util.log('Registered tasks');
   for (var task in gulp.tasks) {
     if (task.lastIndexOf('_', 0) !== 0) {
@@ -17,7 +17,10 @@ gulp.task('default', function() {
 ****************/
 gulp.task('imagemin', ['_clean'], function() {
   gulp.src(['src/*.png', 'src/*.jpeg', 'src/*.jpg', 'src/*.gif'])
-    .pipe($.imagemin())
+    .pipe($.imagemin({
+      'progressive': true,
+      'interlaced': true
+    }))
     .pipe(gulp.dest('dist'));
 });
 
